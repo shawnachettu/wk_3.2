@@ -12,7 +12,11 @@ class ApiController < ApplicationController
     #
     # Ref: http://isithackday.com/arrpi.php?
     #================================================
-    @result = "Replace this string with your answer"
+    user_text = URI.encode(params[:text])
+    url = "http://isithackday.com/arrpi.php?text=#{user_text}&format=json"
+    response = open(url).read
+    parsed_response = JSON.parse(response)
+    @result = parsed_response['translation']['pirate']
   end
 
 
@@ -32,7 +36,14 @@ class ApiController < ApplicationController
     # Ref: https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA
     # as an example
     #================================================
-    @coords = "An array with your coordinates inside"
+    address = URI.encode(params[:address])
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{address}"
+    response = open(url).read
+    parsed = JSON.parse(response)
+
+    @lat = parsed["results"][0]['geometry']["location"]["lat"]
+    @lng = parsed["results"][0]['geometry']["location"]["lng"]
+    @coords = [@lat, @lng]
   end
 
   def meme_gen_form
@@ -50,6 +61,11 @@ class ApiController < ApplicationController
     #
     # Ref: http://apimeme.com/
     #================================================
+    top_text = URI.encode(params[:top_text])
+    bottom_text = URI.encode(params[:bottom_text])
+    meme = URI.encode(params[:meme])
+
+    @result  = "http://apimeme.com/meme?meme=#{meme}&top=#{top_text}&bottom=#{bottom_text}"
   end
 
   def congress_form

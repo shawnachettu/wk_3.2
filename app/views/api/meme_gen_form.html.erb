@@ -1,0 +1,20 @@
+<h1>Enter text to create a meme</h1>
+<form action="/api/meme_process_form">
+  <div>
+    <label for="top_text">Top Text:</label>
+    <input type="text" id="top_text" name="top_text">
+  </div>
+  <div>
+    <label for="bottom_text">Bottom Text:</label>
+    <input type="text" id="bottom_text" name="bottom_text">
+  </div>
+  <div>
+    <select name="meme" id="meme">
+      <option value="Evil+Toddler">Evil Toddler</option>
+      <option value="Facepalm+Bear">Facepalm Bear</option>
+    </select>
+  </div>
+  <div>
+    <input type="submit">
+  </div>
+</form>
